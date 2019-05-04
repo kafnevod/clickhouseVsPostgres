@@ -251,3 +251,62 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 ```
 
 Результат:
+```
+docker exec -i postgres time psql -U postgres  -d БезопасныйГород  < ./noIndex12.sql
+ count  
+--------
+ 156308
+(1 строка)
+
+0.00user 0.00system 6:02.29elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
+0inputs+0outputs (0major+325minor)pagefaults 0swaps
+```
+
+#### Clickhouse
+
+##### Один месяц:
+
+Запрос:
+
+```
+SELECT COUNT(*) FROM OdisseyEvents  
+  WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2018-02-01 00:00:00' AND   match(grz, 'р459*');
+```
+
+Результат:
+```
+11730
+0.01user 0.01system 0:00.14elapsed 20%CPU (0avgtext+0avgdata 52272maxresident)k
+0inputs+0outputs (0major+3080minor)pagefaults 0swaps
+```
+
+##### Квартал
+
+```
+SELECT COUNT(*) FROM OdisseyEvents  
+  WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2018-04-01 00:00:00' AND   match(grz, 'а455*');
+```
+
+Результат:
+```
+111749
+0.01user 0.01system 0:00.34elapsed 10%CPU (0avgtext+0avgdata 58624maxresident)k
+0inputs+0outputs (0major+1593minor)pagefaults 0swaps
+```
+
+##### Год
+
+```
+SELECT COUNT(*) FROM OdisseyEvents  
+  WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2019-01-01 00:00:00' AND  match(grz, 'в555*');
+```
+
+Результат:
+```
+840763
+0.01user 0.01system 0:01.66elapsed 1%CPU (0avgtext+0avgdata 52220maxresident)k
+0inputs+0outputs (0major+3078minor)pagefaults 0swaps
+```
+
+
+
