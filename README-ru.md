@@ -201,6 +201,7 @@ SELECT COUNT(*) FROM OdisseyEvents
 11
 0.01user 0.01system 0:01.37elapsed 2%CPU (0avgtext+0avgdata 52104maxresident)k
 0inputs+0outputs (0major+3076minor)pagefaults 0swaps
+```
 
 ### Запрос без использованием индекса
 
