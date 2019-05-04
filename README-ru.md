@@ -109,21 +109,11 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 
 Первый запрос:
 ```
- count 
--------
-    11
-(1 строка)
-
 0.00user 0.00system 0:00.02elapsed 23%CPU (0avgtext+0avgdata 6020maxresident)k
 0inputs+0outputs (0major+325minor)pagefaults 0swaps
 ```
 Второй запрос:
 ```
-count 
--------
-    11
-(1 строка)
-
 0.00user 0.00system 0:00.01elapsed 27%CPU (0avgtext+0avgdata 5988maxresident)k
 0inputs+0outputs (0major+327minor)pagefaults 0swaps
 ```
@@ -137,14 +127,12 @@ SELECT COUNT(*) FROM OdisseyEvents
 ```
 Первый запрос:
 ```
-11
 0.01user 0.01system 0:01.44elapsed 2%CPU (0avgtext+0avgdata 58456maxresident)k
 0inputs+0outputs (0major+1589minor)pagefaults 0swaps
 ```
 
 Второй запрос:
 ```
-11
 0.01user 0.01system 0:01.37elapsed 2%CPU (0avgtext+0avgdata 52104maxresident)k
 0inputs+0outputs (0major+3076minor)pagefaults 0swaps
 ```
@@ -168,11 +156,6 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 
 Результат:
 ```
- count 
--------
-  1625
-(1 строка)
-
 0.00user 0.00system 0:06.89elapsed 0%CPU (0avgtext+0avgdata 5976maxresident)k
 0inputs+0outputs (0major+329minor)pagefaults 0swaps
 ```
@@ -186,13 +169,8 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 
 Результат:
 ```
-count 
--------
- 13455
-(1 строка)
-
-0.00user 0.00system 4:08.55elapsed 0%CPU (0avgtext+0avgdata 5976maxresident)k
-0inputs+0outputs (0major+329minor)pagefaults 0swaps
+00.00user 0.00system 2:45.01elapsed 0%CPU (0avgtext+0avgdata 6056maxresident)k
+0inputs+0outputs (0major+330minor)pagefaults 0swaps
 ```
 
 ##### Год
@@ -204,12 +182,6 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 
 Результат:
 ```
-docker exec -i postgres time psql -U postgres  -d БезопасныйГород  < ./noIndex12.sql
- count  
---------
- 156308
-(1 строка)
-
 0.00user 0.00system 6:02.29elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
 0inputs+0outputs (0major+325minor)pagefaults 0swaps
 ```
@@ -227,7 +199,6 @@ SELECT COUNT(*) FROM OdisseyEvents
 
 Результат:
 ```
-11730
 0.01user 0.01system 0:00.14elapsed 20%CPU (0avgtext+0avgdata 52272maxresident)k
 0inputs+0outputs (0major+3080minor)pagefaults 0swaps
 ```
@@ -241,7 +212,6 @@ SELECT COUNT(*) FROM OdisseyEvents
 
 Результат:
 ```
-111749
 0.01user 0.01system 0:00.34elapsed 10%CPU (0avgtext+0avgdata 58624maxresident)k
 0inputs+0outputs (0major+1593minor)pagefaults 0swaps
 ```
@@ -255,9 +225,14 @@ SELECT COUNT(*) FROM OdisseyEvents
 
 Результат:
 ```
-840763
 0.01user 0.01system 0:01.66elapsed 1%CPU (0avgtext+0avgdata 52220maxresident)k
 0inputs+0outputs (0major+3078minor)pagefaults 0swaps
+
+База | Месяц(50 млн) | Квартал (150млн) | Год (600млн)
+-----|---------------|--------------
+Postgres |  | 0:06.89 | 0:03.81 | 6:02.29
+ClickHouse | 0:00.14 | 0:00.34 | 0:01.66
+
 ```
 
 ### Подсчет числа записей
@@ -272,22 +247,12 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 
 Первый запрос:
 ```
-count   
------------
- 620773085
-(1 строка)
-
 0.00user 0.00system 1:13.45elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
 0inputs+0outputs (0major+326minor)pagefaults 0swaps`
 ```
 
 Второй запрос:
 ```
-   count   
------------
- 620773085
-(1 строка)
-
 0.00user 0.00system 1:11.96elapsed 0%CPU (0avgtext+0avgdata 5940maxresident)k
 0inputs+0outputs (0major+325minor)pagefaults 0swaps
 ```
@@ -302,14 +267,12 @@ SELECT COUNT(*) FROM OdisseyEvents
 
 Первый запрос:
 ```
-624519723
 0.01user 0.01system 0:00.35elapsed 7%CPU (0avgtext+0avgdata 54168maxresident)k
 0inputs+0outputs (0major+2535minor)pagefaults 0swaps
 ```
 
 Второй запрос:
 ```
-624519723
 0.01user 0.01system 0:00.40elapsed 7%CPU (0avgtext+0avgdata 58620maxresident)k
 0inputs+0outputs (0major+1591minor)pagefaults 0swaps
 ```
