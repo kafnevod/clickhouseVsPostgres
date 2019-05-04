@@ -219,6 +219,9 @@ SELECT COUNT(*) FROM OdisseyEvents
 Postgres | 0:06.89 | 2:45.01 | 6:02.29
 ClickHouse | 0:00.14 | 0:00.34 | 0:01.66
 
+![Время выполнения запросов неиндексированных записей (секунд)](/images/noIndex.png)
+
+
 ### Подсчет числа записей
 
 #### Postgres
