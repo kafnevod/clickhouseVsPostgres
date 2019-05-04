@@ -109,13 +109,11 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 
 Первый запрос:
 
-0.00user 0.00system **0:00.02**elapsed 23%CPU (0avgtext+0avgdata 6020maxresident)k
+0.00user 0.00system **0:00.02**elapsed **23%**CPU (0avgtext+0avgdata 6020maxresident)k
 
 Второй запрос:
-```
-0.00user 0.00system 0:00.01elapsed 27%CPU (0avgtext+0avgdata 5988maxresident)k
-0inputs+0outputs (0major+327minor)pagefaults 0swaps
-```
+
+0.00user 0.00system **0:00.01**elapsed **27%**CPU (0avgtext+0avgdata 5988maxresident)k
 
 #### СlickHouse
 
@@ -125,16 +123,13 @@ SELECT COUNT(*) FROM OdisseyEvents
   WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2019-01-01 00:00:00' AND grz='т459ар79';
 ```
 Первый запрос:
-```
-0.01user 0.01system 0:01.44elapsed 2%CPU (0avgtext+0avgdata 58456maxresident)k
-0inputs+0outputs (0major+1589minor)pagefaults 0swaps
-```
+
+0.01user 0.01system **0:01.44**elapsed **2%**CPU (0avgtext+0avgdata 58456maxresident)k
 
 Второй запрос:
-```
-0.01user 0.01system 0:01.37elapsed 2%CPU (0avgtext+0avgdata 52104maxresident)k
-0inputs+0outputs (0major+3076minor)pagefaults 0swaps
-```
+
+0.01user 0.01system **0:01.37**elapsed **2%**CPU (0avgtext+0avgdata 52104maxresident)k
+
 
 База | Первый запрос | Второй запрос
 -----|---------------|--------------
@@ -154,10 +149,9 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 ```
 
 Результат:
-```
-0.00user 0.00system 0:06.89elapsed 0%CPU (0avgtext+0avgdata 5976maxresident)k
-0inputs+0outputs (0major+329minor)pagefaults 0swaps
-```
+
+0.00user 0.00system **0:06.89**elapsed **0%**CPU (0avgtext+0avgdata 5976maxresident)k
+
 
 ##### Квартал
 
@@ -167,10 +161,9 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 ```
 
 Результат:
-```
-00.00user 0.00system 2:45.01elapsed 0%CPU (0avgtext+0avgdata 6056maxresident)k
+
+00.00user 0.00system **2:45.01**elapsed **0%**CPU (0avgtext+0avgdata 6056maxresident)k
 0inputs+0outputs (0major+330minor)pagefaults 0swaps
-```
 
 ##### Год
 
@@ -180,10 +173,8 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 ```
 
 Результат:
-```
-0.00user 0.00system 6:02.29elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
-0inputs+0outputs (0major+325minor)pagefaults 0swaps
-```
+
+0.00user 0.00system **6:02.29**elapsed **0%**CPU (0avgtext+0avgdata 5984maxresident)k
 
 #### Clickhouse
 
@@ -197,10 +188,9 @@ SELECT COUNT(*) FROM OdisseyEvents
 ```
 
 Результат:
-```
-0.01user 0.01system 0:00.14elapsed 20%CPU (0avgtext+0avgdata 52272maxresident)k
-0inputs+0outputs (0major+3080minor)pagefaults 0swaps
-```
+
+0.01user 0.01system **0:00.14**elapsed **20%**CPU (0avgtext+0avgdata 52272maxresident)k
+
 
 ##### Квартал
 
@@ -210,10 +200,8 @@ SELECT COUNT(*) FROM OdisseyEvents
 ```
 
 Результат:
-```
-0.01user 0.01system 0:00.34elapsed 10%CPU (0avgtext+0avgdata 58624maxresident)k
-0inputs+0outputs (0major+1593minor)pagefaults 0swaps
-```
+
+0.01user 0.01system **0:00.34**elapsed **10%**CPU (0avgtext+0avgdata 58624maxresident)k
 
 ##### Год
 
@@ -223,16 +211,13 @@ SELECT COUNT(*) FROM OdisseyEvents
 ```
 
 Результат:
-```
-0.01user 0.01system 0:01.66elapsed 1%CPU (0avgtext+0avgdata 52220maxresident)k
-0inputs+0outputs (0major+3078minor)pagefaults 0swaps
+
+0.01user 0.01system **0:01.66**elapsed **1%**CPU (0avgtext+0avgdata 52220maxresident)k
 
 База | Месяц(50 млн) | Квартал (150млн) | Год (600млн)
 -----|---------------|--------------
 Postgres |  | 0:06.89 | 0:03.81 | 6:02.29
 ClickHouse | 0:00.14 | 0:00.34 | 0:01.66
-
-```
 
 ### Подсчет числа записей
 
@@ -245,16 +230,13 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 ```
 
 Первый запрос:
-```
-0.00user 0.00system 1:13.45elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
-0inputs+0outputs (0major+326minor)pagefaults 0swaps`
-```
+
+0.00user 0.00system **1:13.45**elapsed **0%**CPU (0avgtext+0avgdata 5984maxresident)k
 
 Второй запрос:
-```
-0.00user 0.00system 1:11.96elapsed 0%CPU (0avgtext+0avgdata 5940maxresident)k
-0inputs+0outputs (0major+325minor)pagefaults 0swaps
-```
+
+0.00user 0.00system **1:11.96**elapsed **0%**CPU (0avgtext+0avgdata 5940maxresident)k
+
 
 #### СlickHouse
 
@@ -265,14 +247,11 @@ SELECT COUNT(*) FROM OdisseyEvents
 ```
 
 Первый запрос:
-```
-0.01user 0.01system 0:00.35elapsed 7%CPU (0avgtext+0avgdata 54168maxresident)k
-0inputs+0outputs (0major+2535minor)pagefaults 0swaps
-```
+
+0.01user 0.01system **0:00.35**elapsed **7%**CPU (0avgtext+0avgdata 54168maxresident)k
 
 Второй запрос:
-```
-0.01user 0.01system 0:00.40elapsed 7%CPU (0avgtext+0avgdata 58620maxresident)k
-0inputs+0outputs (0major+1591minor)pagefaults 0swaps
-```
+
+0.01user 0.01system **0:00.40**elapsed **7%**CPU (0avgtext+0avgdata 58620maxresident)k
+
 
