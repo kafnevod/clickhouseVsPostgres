@@ -228,3 +228,26 @@ SELECT COUNT(*) FROM ФотофиксацияТС
 ##### Квартал
 
 ```
+SELECT COUNT(*) FROM ФотофиксацияТС  
+  WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-04-01 00:00:00' AND НомерТС LIKE 'а455%';
+```
+
+Результат:
+```
+count 
+-------
+ 13455
+(1 строка)
+
+0.00user 0.00system 4:08.55elapsed 0%CPU (0avgtext+0avgdata 5976maxresident)k
+0inputs+0outputs (0major+329minor)pagefaults 0swaps
+```
+
+##### Год
+
+```
+SELECT COUNT(*) FROM ФотофиксацияТС  
+  WHERE Время>'2018-01-01 00:00:00' AND  Время<'2019-01-01 00:00:00' AND НомерТС LIKE 'в555%';
+```
+
+Результат:
