@@ -51,4 +51,28 @@
     insert_delete_fixation AFTER INSERT OR UPDATE ON "ФотофиксацияТС" FOR EACH ROW EXECUTE PROCEDURE insert_delete_fixation_func()
 
 ```
+Число записей за 2018 год - `627 770 612`
+
+### Поток данных фотофиксации таблицы  OdisseyEvents
+
+Структура таблицы  OdisseyEvents
+```
+CREATE TABLE OdisseyEvents (
+  uid UUID,
+  typeid String,
+  photo_id String,
+  datetime DateTime,
+  timestamp UInt32,
+  object_id Int32,
+  camera_direction_id Int32,
+  camera_id Int32,
+  grz String,
+  speed UInt16
+) ENGINE MergeTree() PARTITION BY toYYYYMM(datetime) ORDER BY (datetime, object_id, camera_direction_id, camera_id);
+```
+
+Число записей за 2018 год - `624 540 000`
+
+
+
 
