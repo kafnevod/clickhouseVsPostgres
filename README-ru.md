@@ -76,21 +76,154 @@ CREATE TABLE OdisseyEvents (
 ## Тестовая среда
 
 База данных Postges:
+- Доступная оперативная память ~120Gb;
 
+База данных lickHouse:
+- Доступная оперативная память ~40Gb;
+
+Процессоры идентичные - 32 ядра ~1200 MHz
+Дисковые подсистемы аналогичные (ISCSI-диски)
 
 
 ## Сравнение производительности
 
 Обе базы данных эффективно используют системые кэши и кэши базы данных.
 Postgres за счет индексации данных и кэшировния результатов запросов 
-показывает близкую (большую ии меньшую) производительность при "повторяющихся" идентичных запросах.
+показывает близкую (большую или меньшую) производительность при "повторяющихся" идентичных запросах.
 
+Основное отличие в производительности возникет в ситуациях когда поступающие запросы 
+(характерные для аналитики)
+не позволяют базе данных использует кеши. 
+В этом случае clickhouse  при объеме данных более XXX миллинов записей 
+показыват свое пеимущество.
 
-Основное отличие в производительности возникет в ситуациях когда база данных
-не использует кеши (). 
-В этом случае в зависимости от объемов двнных clickhouse 
+### Подсчет числа записей
 
-При "повторяющихся"
+#### Postgres
 
+Запрос:
+```
+SELECT COUNT(*) FROM ФотофиксацияТС  
+  WHERE Время>'2018-01-01 00:00:00' AND  Время<'2019-01-01 00:00:00';
+```
 
+Первый запрос:
+```
+count   
+-----------
+ 620773085
+(1 строка)
 
+0.00user 0.00system 1:13.45elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
+0inputs+0outputs (0major+326minor)pagefaults 0swaps`
+```
+
+Второй запрос:
+```
+   count   
+-----------
+ 620773085
+(1 строка)
+
+0.00user 0.00system 1:11.96elapsed 0%CPU (0avgtext+0avgdata 5940maxresident)k
+0inputs+0outputs (0major+325minor)pagefaults 0swaps
+```
+
+#### СlickHouse
+
+Запрос:
+```
+SELECT COUNT(*) FROM OdisseyEvents  
+  WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2019-01-01 00:00:00';
+```
+
+Первый запрос:
+```
+624519723
+0.01user 0.01system 0:00.35elapsed 7%CPU (0avgtext+0avgdata 54168maxresident)k
+0inputs+0outputs (0major+2535minor)pagefaults 0swaps
+```
+
+Второй запрос:
+```
+624519723
+0.01user 0.01system 0:00.40elapsed 7%CPU (0avgtext+0avgdata 58620maxresident)k
+0inputs+0outputs (0major+1591minor)pagefaults 0swaps
+```
+
+### Запрос с использованием индекса
+
+#### Postgres
+
+Запрос:
+```
+SELECT COUNT(*) FROM ФотофиксацияТС  
+  WHERE Время>'2018-01-01 00:00:00' AND  Время<'2019-01-01 00:00:00' AND НомерТС='т459ар79';
+```
+
+Первый запрос:
+```
+ count 
+-------
+    11
+(1 строка)
+
+0.00user 0.00system 0:00.02elapsed 23%CPU (0avgtext+0avgdata 6020maxresident)k
+0inputs+0outputs (0major+325minor)pagefaults 0swaps
+```
+Второй запрос:
+```
+count 
+-------
+    11
+(1 строка)
+
+0.00user 0.00system 0:00.01elapsed 27%CPU (0avgtext+0avgdata 5988maxresident)k
+0inputs+0outputs (0major+327minor)pagefaults 0swaps
+```
+
+#### СlickHouse
+
+Запрос:
+```
+SELECT COUNT(*) FROM OdisseyEvents  
+  WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2019-01-01 00:00:00' AND grz='т459ар79';
+```
+Первый запрос:
+```
+11
+0.01user 0.01system 0:01.44elapsed 2%CPU (0avgtext+0avgdata 58456maxresident)k
+0inputs+0outputs (0major+1589minor)pagefaults 0swaps
+```
+
+Второй запрос:
+```
+11
+0.01user 0.01system 0:01.37elapsed 2%CPU (0avgtext+0avgdata 52104maxresident)k
+0inputs+0outputs (0major+3076minor)pagefaults 0swaps
+
+### Запрос без использованием индекса
+
+#### Postgres
+
+Запрос:
+##### Один месяц:
+```
+SELECT COUNT(*) FROM ФотофиксацияТС  
+  WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-02-01 00:00:00' AND НомерТС LIKE 'р459%';
+```
+
+Результат:
+```
+ count 
+-------
+  1625
+(1 строка)
+
+0.00user 0.00system 0:06.89elapsed 0%CPU (0avgtext+0avgdata 5976maxresident)k
+0inputs+0outputs (0major+329minor)pagefaults 0swaps
+```
+
+##### Квартал
+
+```
