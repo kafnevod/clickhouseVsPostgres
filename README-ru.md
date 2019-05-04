@@ -95,61 +95,7 @@ Postgres за счет индексации данных и кэшировния
 (характерные для аналитики)
 не позволяют базе данных использует кеши. 
 В этом случае clickhouse  при объеме данных более XXX миллинов записей 
-показыват свое пеимущество.
-
-### Подсчет числа записей
-
-#### Postgres
-
-Запрос:
-```
-SELECT COUNT(*) FROM ФотофиксацияТС  
-  WHERE Время>'2018-01-01 00:00:00' AND  Время<'2019-01-01 00:00:00';
-```
-
-Первый запрос:
-```
-count   
------------
- 620773085
-(1 строка)
-
-0.00user 0.00system 1:13.45elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
-0inputs+0outputs (0major+326minor)pagefaults 0swaps`
-```
-
-Второй запрос:
-```
-   count   
------------
- 620773085
-(1 строка)
-
-0.00user 0.00system 1:11.96elapsed 0%CPU (0avgtext+0avgdata 5940maxresident)k
-0inputs+0outputs (0major+325minor)pagefaults 0swaps
-```
-
-#### СlickHouse
-
-Запрос:
-```
-SELECT COUNT(*) FROM OdisseyEvents  
-  WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2019-01-01 00:00:00';
-```
-
-Первый запрос:
-```
-624519723
-0.01user 0.01system 0:00.35elapsed 7%CPU (0avgtext+0avgdata 54168maxresident)k
-0inputs+0outputs (0major+2535minor)pagefaults 0swaps
-```
-
-Второй запрос:
-```
-624519723
-0.01user 0.01system 0:00.40elapsed 7%CPU (0avgtext+0avgdata 58620maxresident)k
-0inputs+0outputs (0major+1591minor)pagefaults 0swaps
-```
+показыват свое преимущество.
 
 ### Запрос с использованием индекса
 
@@ -202,6 +148,12 @@ SELECT COUNT(*) FROM OdisseyEvents
 0.01user 0.01system 0:01.37elapsed 2%CPU (0avgtext+0avgdata 52104maxresident)k
 0inputs+0outputs (0major+3076minor)pagefaults 0swaps
 ```
+
+База | Первый запрос | Второй запрос
+-----|---------------|--------------
+Postgres | 0:00.02 | 0:00.01
+ClickHouse | 0:01.44 | 0:01.37
+
 
 ### Запрос без использованием индекса
 
@@ -308,5 +260,57 @@ SELECT COUNT(*) FROM OdisseyEvents
 0inputs+0outputs (0major+3078minor)pagefaults 0swaps
 ```
 
+### Подсчет числа записей
 
+#### Postgres
+
+Запрос:
+```
+SELECT COUNT(*) FROM ФотофиксацияТС  
+  WHERE Время>'2018-01-01 00:00:00' AND  Время<'2019-01-01 00:00:00';
+```
+
+Первый запрос:
+```
+count   
+-----------
+ 620773085
+(1 строка)
+
+0.00user 0.00system 1:13.45elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
+0inputs+0outputs (0major+326minor)pagefaults 0swaps`
+```
+
+Второй запрос:
+```
+   count   
+-----------
+ 620773085
+(1 строка)
+
+0.00user 0.00system 1:11.96elapsed 0%CPU (0avgtext+0avgdata 5940maxresident)k
+0inputs+0outputs (0major+325minor)pagefaults 0swaps
+```
+
+#### СlickHouse
+
+Запрос:
+```
+SELECT COUNT(*) FROM OdisseyEvents  
+  WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2019-01-01 00:00:00';
+```
+
+Первый запрос:
+```
+624519723
+0.01user 0.01system 0:00.35elapsed 7%CPU (0avgtext+0avgdata 54168maxresident)k
+0inputs+0outputs (0major+2535minor)pagefaults 0swaps
+```
+
+Второй запрос:
+```
+624519723
+0.01user 0.01system 0:00.40elapsed 7%CPU (0avgtext+0avgdata 58620maxresident)k
+0inputs+0outputs (0major+1591minor)pagefaults 0swaps
+```
 
