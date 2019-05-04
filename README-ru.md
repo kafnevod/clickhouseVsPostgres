@@ -152,9 +152,13 @@ SELECT COUNT(*) FROM ФотофиксацияТС
   WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-02-01 00:00:00' AND НомерТС LIKE 'р459%';
 ```
 
-Результат:
+Результат при первом вызове (nocache):
 
 0.00user 0.00system **0:06.89**elapsed **0%**CPU (0avgtext+0avgdata 5976maxresident)k
+
+Результат при повторном вызове (использоваие cache):
+
+0.01user 0.01system **0:04.07**elapsed **0%**CPU (0avgtext+0avgdata 52272maxresident)k
 
 
 ##### Квартал
@@ -164,10 +168,14 @@ SELECT COUNT(*) FROM ФотофиксацияТС
   WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-04-01 00:00:00' AND НомерТС LIKE 'а455%';
 ```
 
-Результат:
+
+Результат при первом вызове (nocache):
 
 00.00user 0.00system **2:45.01**elapsed **0%**CPU (0avgtext+0avgdata 6056maxresident)k
-0inputs+0outputs (0major+330minor)pagefaults 0swaps
+
+Результат при повторном вызове (использоваие cache):
+
+0.01user 0.01system **0:04.60**elapsed **0%**CPU (0avgtext+0avgdata 52272maxresident)k
 
 ##### Год
 
@@ -176,9 +184,14 @@ SELECT COUNT(*) FROM ФотофиксацияТС
   WHERE Время>'2018-01-01 00:00:00' AND  Время<'2019-01-01 00:00:00' AND НомерТС LIKE 'в555%';
 ```
 
-Результат:
+Результат при первом вызове (nocache):
 
 0.00user 0.00system **6:02.29**elapsed **0%**CPU (0avgtext+0avgdata 5984maxresident)k
+
+Результат при повторном вызове (использоваие cache):
+
+0.01user 0.01system **0:05.10**elapsed **0%**CPU (0avgtext+0avgdata 52272maxresident)k
+
 
 #### Clickhouse
 
@@ -191,7 +204,7 @@ SELECT COUNT(*) FROM OdisseyEvents
   WHERE datetime>'2018-01-01 00:00:00' AND  datetime<'2018-02-01 00:00:00' AND   match(grz, 'р459*');
 ```
 
-Результат:
+Результат при первом вызове:
 
 0.01user 0.01system **0:00.14**elapsed **20%**CPU (0avgtext+0avgdata 52272maxresident)k
 
