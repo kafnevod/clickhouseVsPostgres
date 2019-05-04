@@ -135,7 +135,7 @@ SELECT COUNT(*) FROM OdisseyEvents
 -----|---------------|--------------
 Postgres | 0:00.02 | 0:00.01
 ClickHouse | 0:01.44 | 0:01.37
------|---------------|--------------
+||
 Postgres/ClickHouse | 1/72 | 1/177
 
 
