@@ -304,3 +304,120 @@ ClickHouse | 0:01.44 | 0:00.35 | 0:01.66
 Postgres/ClickHouse | 1/72 | 200/1 | 200/1
 
 ![Сравнение времени выполнения запросов на 600 млн записей (секунд)](/images/compare600.png)
+
+## Портироваие Postgres-таблиц в Clickhouse
+
+### DUMP таблиц из Postgres
+
+#### DUMP таблицы ФотофиксацияТС
+
+
+```
+echo "COPY (select * from ФотофиксацияТС where Время>'2018-01-01' and Время>'2018-02-01') TO STDOUT;" | 
+psql -U postgres >/var/data/tmp/ФотофиксацияТС.tsv
+```
+
+### RESTORE таблиц в ClickHouse
+
+### RESTORE таблицы ФотофиксацияТС
+
+#### Создание таблицы ФотофиксацияТС
+
+```
+CREATE TABLE `ФотофиксацияТС` (
+  `primarykey` UUID, 
+  `createtime` Nullable(DateTime), 
+  `creator` String, 
+  `edittime` Nullable(DateTime), 
+  `editor` Nullable(String), 
+  `НомерТС` String, 
+  `Скорость` Int16, 
+  `ОграничениеСкорости` Int16, 
+  `ИдентификаторМатериала` String, 
+  `Время` DateTime, 
+  `ДатаПоступления` DateTime, 
+  `Получатель` String, 
+  `ТранспортноеСредство` Nullable(String), 
+  `Источник` Nullable(UUID), 
+  `x` Nullable(Float32), 
+  `y` Nullable(Float32), 
+  `ГруппаФакта` Nullable(String), 
+  `vehicletypetext` Nullable(String), 
+  `vehiclecolortext` Nullable(String), 
+  `vehiclebrandtext` Nullable(String), 
+  `vehiclemodeltext` Nullable(String)
+  ) ENGINE = MergeTree() 
+  PARTITION BY toYYYYMM(`Время`) 
+  ORDER BY `Время` 
+  SETTINGS index_granularity = 8192;
+  ```
+
+#### Формирование таблицы ФотофиксацияТС из DUMP'ов
+
+```
+clickhouse-client -d БезопасныйГород \
+  --date_time_input_format=best_effort \
+    --query='INSERT INTO "ФотофиксацияТС"  \
+      FORMAT TabSeparated' <var/data/tmp/ФотофиксацияТС.tsv
+```
+
+### RESTORE таблицы Источник
+
+#### Создание таблицы Источник
+
+```
+CREATE TABLE `БезопасныйГород`.`Источник` (
+  `primarykey` UUID, 
+  `createtime` Nullable(DateTime), 
+  `creator` Nullable(String), 
+  `edittime` Nullable(DateTime), 
+  `editor` Nullable(String), 
+  `Наименование` Nullable(String), 
+  `Примечание` Nullable(String), 
+  `НаправлениеУстановки` Nullable(String), 
+  `ШаблонСсылкиНаМатериал` Nullable(String), 
+  `СтрокаСоединения` Nullable(String), 
+  `sipname` Nullable(String), 
+  `ПолосаДвижения` Nullable(Int8), 
+  `ДатаПоследнегоФакта` Nullable(DateTime), 
+  `Идентификатор` Nullable(String), 
+  `ПодвижныйОбъект` Nullable(UUID), 
+  `МестоРасположения` Nullable(UUID), 
+  `СтатусИсточника` Nullable(UUID), 
+  `Оборудование` Nullable(UUID), 
+  `КлючИсточника` Nullable(String), 
+  `КолвоМест` Nullable(UInt16), 
+  `ТипПарковки` Nullable(String), 
+  `lat` Nullable(Float32), 
+  `lon` Nullable(Float32)
+  ) ENGINE = MergeTree() 
+  PRIMARY KEY primarykey 
+  ORDER BY primarykey 
+  SETTINGS index_granularity = 8192;
+```
+
+#### Формирование таблицы Оборудование из DUMP'ов
+
+### RESTORE таблицы Оборудование
+
+#### Создание таблицы Оборудование
+
+```
+CREATE TABLE `БезопасныйГород`.`Оборудование` (
+  `primarykey` UUID, 
+  `Идентификатор` String, 
+  `Наименование` String, 
+  `Актуально` UInt8, 
+  `createtime` Nullable(DateTime), 
+  `creator` String, 
+  `edittime` Nullable(DateTime), 
+  `editor` String, 
+  `ФункциональныйМодуль` Nullable(UUID), 
+  `ВидОборудования` Nullable(UUID), 
+  `КомплексОборудования` Nullable(UUID)
+  ) ENGINE = MergeTree() 
+  PRIMARY KEY primarykey 
+  ORDER BY primarykey 
+  SETTINGS index_granularity = 8192;
+```
+
