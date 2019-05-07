@@ -398,6 +398,9 @@ CREATE TABLE `БезопасныйГород`.`Источник` (
 
 #### Формирование таблицы Оборудование из DUMP'ов
 
+```
+```
+
 ### RESTORE таблицы Оборудование
 
 #### Создание таблицы Оборудование
@@ -420,4 +423,59 @@ CREATE TABLE `БезопасныйГород`.`Оборудование` (
   ORDER BY primarykey 
   SETTINGS index_granularity = 8192;
 ```
+
+### Формирование таблицы Оборудование из DUMP'а
+
+```
+```
+
+### RESTORE таблицы КомплексОборудования
+
+#### Создание таблицы КомплексОборудования
+
+```
+CREATE TABLE `БезопасныйГород`.`КомплексОборудования` (
+  `primarykey` UUID, 
+  `Идентификатор` String, 
+  `Наименование` String, 
+  `Актуально` UInt8, 
+  `createtime` Nullable(DateTime), 
+  `creator` Nullable(String), 
+  `edittime` Nullable(DateTime), 
+  `editor` String, 
+  `ФункциональныйМодуль` Nullable(UUID), 
+  `place` String
+  ) ENGINE = MergeTree() 
+  PRIMARY KEY primarykey 
+  ORDER BY primarykey 
+  SETTINGS index_granularity = 8192;
+```
+
+### Формирование таблицы Оборудование из DUMP'а
+
+
+### RESTORE таблицы ФункциональныйМодуль
+
+#### Создание таблицы ФункциональныйМодуль
+
+```
+CREATE TABLE `БезопасныйГород`.`ФункциональныйМодуль` (
+  `primarykey` UUID, 
+  `Идентификатор` String, 
+  `Наименование` String, 
+  `Актуально` UInt8, 
+  `createtime` Nullable(DateTime), 
+  `creator` String, 
+  `edittime` Nullable(DateTime), 
+  `editor` String
+  ) ENGINE = MergeTree() 
+  PRIMARY KEY primarykey 
+  ORDER BY primarykey 
+  SETTINGS index_granularity = 8192;
+```
+
+
+### Формирование таблицы ФункциональныйМодуль из DUMP'а
+
+
 
