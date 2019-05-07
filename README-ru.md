@@ -352,6 +352,8 @@ psql -U postgres -d БезопасныйГород >/var/data/tmp/Функцио
 
 #### Создание таблицы ФотофиксацияТС
 
+
+Все столбцы, которые могут иметь значение `NULL` описываются как `Nullable`.
 ```
 CREATE TABLE `ФотофиксацияТС` (
   `primarykey` UUID, 
@@ -383,11 +385,13 @@ CREATE TABLE `ФотофиксацияТС` (
 
 #### Формирование таблицы ФотофиксацияТС из DUMP'ов
 
+Так как нетоторые столбцы типа `DateTime` могут содежать микосекунды при импорте данных
+необходимо указать флаг `--date_time_input_format=best_effort`.
 ```
 clickhouse-client -d БезопасныйГород \
   --date_time_input_format=best_effort \
-    --query='INSERT INTO "ФотофиксацияТС"  \
-      FORMAT TabSeparated' <var/data/tmp/ФотофиксацияТС.tsv
+  --query='INSERT INTO "ФотофиксацияТС"  \
+  FORMAT TabSeparated' <var/data/tmp/ФотофиксацияТС.tsv
 ```
 
 #### Размеры таблицы ФотофиксацияТС в ClickHouse
@@ -435,11 +439,10 @@ CREATE TABLE `БезопасныйГород`.`Источник` (
 #### Формирование таблицы Источник из DUMP'ов
 
 ```
-sed -e "s/\tt\t/\t1\t" -e "\tf\t/\t0\t" <var/data/tmp/Источник.tsv |
 clickhouse-client -d БезопасныйГород \
   --date_time_input_format=best_effort \
     --query='INSERT INTO "Источник"  \
-      FORMAT TabSeparated' 
+      FORMAT TabSeparated'  <var/data/tmp/Источник.tsv
 ```
 
 ### RESTORE таблицы Оборудование
@@ -467,6 +470,10 @@ CREATE TABLE `БезопасныйГород`.`Оборудование` (
 
 ### Формирование таблицы Оборудование из DUMP'а
 
+Так как значения типа `boolean` в `ClickHouse` описываются как UInt8, до импорта необходимо преобразовать
+раздклкнные табуляцией
+- значения 't' в '1';
+- значения 'f' в '0'.
 ```
 sed -e "s/\tt\t/\t1\t" -e "\tf\t/\t0\t" <var/data/tmp/Оборудование.tsv |
 clickhouse-client -d БезопасныйГород \
