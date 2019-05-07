@@ -390,6 +390,13 @@ clickhouse-client -d БезопасныйГород \
       FORMAT TabSeparated' <var/data/tmp/ФотофиксацияТС.tsv
 ```
 
+#### Размеры таблицы ФотофиксацияТС в ClickHouse
+
+```
+DUMP - 138 223 Mb
+/var/lib/clickhouse/data/БезопасныйГород/ФотофиксацияТС - 24 717 Mb
+```
+
 ### RESTORE таблицы Источник
 
 #### Создание таблицы Источник
