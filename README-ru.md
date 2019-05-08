@@ -1068,6 +1068,32 @@ ClickHouse поддерживает богатый набо аггрегацио
 
 ### Форматы входных и выходных данных
 
+ Формат |	INSERT | 	SELECT
+--------|--------|--------
+TabSeparated |	✔  |	✔
+TabSeparatedRaw |	✗ |	✔
+TabSeparatedWithNames |	✔ |	✔
+TabSeparatedWithNamesAndTypes |	✔ |	✔
+CSV |	✔ |	✔
+CSVWithNames |	✔ |	✔
+Values |	✔ |	✔
+Vertical |	✗ |	✔
+JSON |	✗ |	✔
+JSONCompact |	✗ |	✔
+JSONEachRow |	✔ |	✔
+TSKV |	✔ |	✔
+Pretty |	✗ |	✔
+PrettyCompact |	✗ |	✔
+PrettyCompactMonoBlock |	✗ |	✔
+PrettyNoEscapes |	✗ |	✔
+PrettySpace |	✗ |	✔
+Protobuf |	✔ |	✔
+RowBinary |	✔ |	✔
+Native |	✔ |	✔
+Null |	✗ |	✔
+XML |	✗ |	✔
+CapnProto |	✔ |	✗
+
 
 
 ### PostgreSQL's Foreign Data Wrapper
@@ -1118,5 +1144,8 @@ ClickHouse поддерживает богатый набо аггрегацио
 Гео
 - [GeoIP2 databases for geolocaiton ](https://github.com/AlexeyKupershtokh/clickhouse-maxmind-geoip);
 
+[Визуальные интерфейсы](https://clickhouse.yandex/docs/ru/interfaces/third-party/gui/)
+
+[Прокси](https://clickhouse.yandex/docs/ru/interfaces/third-party/proxy/)
 
 
