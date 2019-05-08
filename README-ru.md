@@ -833,12 +833,11 @@ LEFT JOIN
 ) AS "КомплексОборудования" ON "Оборудование"."КомплексОборудования" = "КомплексОборудования".primarykey
 WHERE "КомплексОборудования"."Наименование" LIKE '%Ленина%';
 
-
+154.88user 7.20system 19:01.70elapsed 14%CPU (0avgtext+0avgdata 5498400maxresident)k
 ```
 
 
 #### ClickHouse
-
 
 ```
 SELECT count(`ФотофиксацияТС`.`НомерТС`, `ФотофиксацияТС`.`Время`, `ФотофиксацияТС`.`Скорость`, `Источник`.`Идентификатор` AS camera_id, `Оборудование`.`Идентификатор` AS group_id, `КомплексОборудования`.`Идентификатор` AS object_id, `КомплексОборудования`.`Наименование` AS place)
@@ -1030,6 +1029,53 @@ ClickHouse поддерживает богатый набо аггрегацио
 
 
 
+### PostgreSQL's Foreign Data Wrapper
+
+В настоящее время существует два проекта:
+- [Percona-Lab/clickhousedb_fdw](https://github.com/Percona-Lab/clickhousedb_fdw) (Postgres11);
+- [Infinidat/infi.clickhouse_fdw](https://github.com/Infinidat/infi.clickhouse_fdw)
+обеспечивающие работу с ClickHouse через Postgres как с таблицами Postgres.
+
+Возможно данный подход решит проблему использования ClickHouse 
+в OLAP-приложении `Saiku(Pntaho)`.
+
+В рамках `Infinidat` существует проект [ORM for ClickHouse](https://github.com/Infinidat/infi.clickhouse_orm).
+
+### Экспорт данных из сторонних баз данных
+
+- Postgres:
+  * [mkabilov/pg2ch](https://github.com/mkabilov/pg2ch).
+  
+- MS SQL:
+  * [zlzforever/ClickHouseMigrator](https://github.com/zlzforever/ClickHouseMigrator).
+
+### Управление репликами ClickHouse в кластере
+
+[ClickhouseOperator](https://github.com/Altinity/clickhouse-operator) создает, конфигурирует и
+управляет репликами ClickHouse функционирующие в среде Kubernetes.
+
+### [Иные интеграционные проекты](https://clickhouse.yandex/docs/ru/interfaces/third-party/integrations/)
+
+Мониторинг
+
+- Graphite
+    * [graphouse](https://github.com/yandex/graphouse);
+    * [carbon-clickhouse](https://github.com/lomik/carbon-clickhouse);
+- Grafana
+    * [**clickhouse-grafana**](https://github.com/Vertamedia/clickhouse-grafana);
+- Prometheus
+    * [clickhouse_exporter](https://github.com/f1yegor/clickhouse_exporter);
+    * [PromHouse](https://github.com/Percona-Lab/PromHouse);
+    * [clickhouse_exporter (использует Go client)](https://github.com/hot-wifi/clickhouse_exporter);
+- Nagios
+    * [check_clickhouse](https://github.com/exogroup/check_clickhouse/);
+- Zabbix
+    * [**clickhouse-zabbix-template**](https://github.com/Altinity/clickhouse-zabbix-template);
+- Sematext
+    * [clickhouse интеграция](https://github.com/sematext/sematext-agent-integrations/tree/master/clickhouse).
+
+Гео
+- [GeoIP2 databases for geolocaiton ](https://github.com/AlexeyKupershtokh/clickhouse-maxmind-geoip);
 
 
 
