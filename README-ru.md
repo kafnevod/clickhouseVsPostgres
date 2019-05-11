@@ -253,7 +253,7 @@ select substring("НомерТС",1,1),COUNT(*) as Times FROM "Фотофикс�
 ### ClickHouse
 
 ```
-select substring("НомерТС",1,1),COUNT(*) as Times FROM "ФотофиксацияТС" WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-04-01 00:00:00'  GROUP BY substring("НомерТС",1,1) ORDER BY Times; 
+select substringUTF8("НомерТС",1,1),COUNT(*) as Times FROM "ФотофиксацияТС" WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-04-01 00:00:00'  GROUP BY substringUTF8("НомерТС",1,1) ORDER BY Times; 
 
 0.02user 0.01system 0:02.51elapsed 1%CPU (0avgtext+0avgdata 49396maxresident)k
 ```
