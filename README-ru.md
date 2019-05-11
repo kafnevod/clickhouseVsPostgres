@@ -242,6 +242,23 @@ Postgres cache/ClickHouse | 30/1 | 14/1 | 3/1
 
 ![Время выполнения запросов неиндексированных записей (секунд)](/images/noIndex.png)
 
+### Аналитический запрос с группировкой
+
+#### Postgres
+```
+select substring("НомерТС",1,1),COUNT(*) as Times FROM "ФотофиксацияТС" WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-04-01 00:00:00'  GROUP BY substring("НомерТС",1,1) ORDER BY Times; 
+
+```
+
+### ClickHouse
+
+```
+select substring("НомерТС",1,1),COUNT(*) as Times FROM "ФотофиксацияТС" WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-04-01 00:00:00'  GROUP BY substring("НомерТС",1,1) ORDER BY Times; 
+
+0.02user 0.01system 0:02.51elapsed 1%CPU (0avgtext+0avgdata 49396maxresident)k
+```
+
+
 
 ### Кэширование
 
