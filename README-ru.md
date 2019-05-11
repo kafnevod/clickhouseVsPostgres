@@ -247,7 +247,7 @@ Postgres cache/ClickHouse | 30/1 | 14/1 | 3/1
 #### Postgres
 ```
 select substring("НомерТС",1,1),COUNT(*) as Times FROM "ФотофиксацияТС" WHERE Время>'2018-01-01 00:00:00' AND  Время<'2018-04-01 00:00:00'  GROUP BY substring("НомерТС",1,1) ORDER BY Times; 
-
+0.00user 0.00system 22:47.87elapsed 0%CPU (0avgtext+0avgdata 5984maxresident)k
 ```
 
 ### ClickHouse
