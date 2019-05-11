@@ -1160,7 +1160,7 @@ CREATE USER MAPPING FOR CURRENT_USER SERVER clickhouse_svr;
 CREATE FOREIGN TABLE "Odissey"
 (
   "photo_id" character varying(255), 
-  "datetime" Time, 
+  "datetime" timestamp, 
   "object_id" character varying(255), 
   "camera_direction_id" character varying(255), 
   "camera_id" character varying(255), 
