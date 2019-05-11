@@ -1149,3 +1149,23 @@ CapnProto |	✔ |	✗
 [Прокси](https://clickhouse.yandex/docs/ru/interfaces/third-party/proxy/)
 
 
+## Postgres clickhousedb_fdw
+
+```
+CREATE SERVER clickhouse_svr FOREIGN DATA WRAPPER clickhousedb_fdw 
+  OPTIONS(dbname 'БезопасныйГород', driver '/usr/local/lib64/odbc/libclickhouseodbc.so', host '172.18.204.9', port '19000' );
+
+CREATE USER MAPPING FOR CURRENT_USER SERVER clickhouse_svr;
+
+CREATE FOREIGN TABLE "Odissey"
+(
+  "photo_id" character varying(255), 
+  "datetime" Time, 
+  "object_id" character varying(255), 
+  "camera_direction_id" character varying(255), 
+  "camera_id" character varying(255), 
+  "grz" character varying(255), 
+  "speed" smallint
+) SERVER clickhouse_svr;
+```
+
