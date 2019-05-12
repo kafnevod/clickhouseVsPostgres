@@ -1111,6 +1111,20 @@ Null |	✗ |	✔
 XML |	✗ |	✔
 CapnProto |	✔ |	✗
 
+### Аггрегация (View)
+```
+CREATE VIEW TrafByMin 
+  TO "ФотофиксацияТС" AS
+  SELECT Y,M,D,h,m,COUNT(Y,M,D,h,m) FROM
+    (SELECT 
+      toYear("Время") as Y,
+      toMonth("Время") as M,
+      toDayOfMonth("Время") as D,
+      toHour("Время") as h,
+      toMinute("Время")as m 
+    FROM "ФотофиксацияТС" 
+    ) GROUP BY Y,M,D,h,m
+  ```
 
 
 ### PostgreSQL's Foreign Data Wrapper
