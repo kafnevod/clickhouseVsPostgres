@@ -1113,9 +1113,9 @@ CapnProto |	✔ |	✗
 
 ### Аггрегация (View)
 ```
-CREATE VIEW TrafByMin 
-  TO "ФотофиксацияТС" AS
-  SELECT Y,M,D,h,m,COUNT(Y,M,D,h,m) FROM
+CREATE [MATERIALIZED] VIEW TrafByMin 
+  [ENGINE = AggregatingMergeTree() PARTITION BY Y ORDER BY (Y,M,D,h,m) POPULATE]
+  AS SELECT Y,M,D,h,m,COUNT(Y,M,D,h,m) AS n FROM
     (SELECT 
       toYear("Время") as Y,
       toMonth("Время") as M,
@@ -1123,7 +1123,9 @@ CREATE VIEW TrafByMin
       toHour("Время") as h,
       toMinute("Время")as m 
     FROM "ФотофиксацияТС" 
-    ) GROUP BY Y,M,D,h,m
+    ) 
+  GROUP BY Y,M,D,h,m
+  ORDER BY Y,M,D,h,m
   ```
 
 
