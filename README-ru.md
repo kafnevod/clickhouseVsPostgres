@@ -335,7 +335,7 @@ Postgres/ClickHouse | 1/72 | 200/1 | 200/1
 
 
 ```
-echo "COPY (select * from ФотофиксацияТС where Время>'2018-01-01' and Время>'2018-02-01') TO STDOUT;" | 
+echo "COPY (select * from ФотофиксацияТС where Время>'2018-01-01' and Время<'2018-02-01') TO STDOUT;" | 
 psql -U postgres -d БезопасныйГород >/var/data/tmp/ФотофиксацияТС.tsv
 ```
 
